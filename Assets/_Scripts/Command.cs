@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class Command : ICommand
 {
-    protected Entity _entity;
+    protected Entity _target;
 
 
-    protected Command(Entity entity)
+    protected Command(Entity target)
     {
-        _entity = entity;
+        _target = target;
     }
 
     public abstract void Excecute();
