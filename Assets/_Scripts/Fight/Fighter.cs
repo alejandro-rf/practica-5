@@ -45,7 +45,7 @@ public class Fighter : Entity
     }
     public void UndoDamage(float damage)
     {
-        float realDamage = damage - (BaseDefense + RoundDefense);
+        float realDamage = damage + (BaseDefense + RoundDefense);
        // realDamage = Mathf.Max(realDamage, 0);
 
         CurrentHealth -= realDamage;
@@ -58,6 +58,10 @@ public class Fighter : Entity
     public void Heal(float amount)
     {
         CurrentHealth += amount;
+        if(CurrentHealth > MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
+        }
     }
 
     private void Die()
@@ -67,6 +71,8 @@ public class Fighter : Entity
 
     public void AddDefense(float amount)
     {
+        Debug.Log("BaseDefense " + BaseDefense);
+        Debug.Log("RoundDefense " + RoundDefense);
         RoundDefense += amount;
         OnChange?.Invoke();
     }

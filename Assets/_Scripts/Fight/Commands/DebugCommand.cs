@@ -27,10 +27,18 @@ public class DebugCommand : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log(fighter.Attack);
             var command = new BoostAttackCommand(fighter, 1f);
             Invoker.AddCommand(command);
-            Debug.Log(fighter.Attack);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            var command = new BoostDefenseCommand(fighter, 1f);
+            Invoker.AddCommand(command);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            var command = new ShieldCommand(fighter, 5f);
+            Invoker.AddCommand(command);
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
