@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealCommand : Command
+public class BoostDefenseCommand : Command
 {
     private float value;
 
-    public HealCommand(Fighter entity, float value) : base(entity)
+    public BoostDefenseCommand(Entity target, float value) : base(target)
     {
         this.value = value;
     }
 
     public override void Excecute()
     {
-        (_target as Fighter).Heal(value);
+        (_target as Fighter).AddDefensePermanent(value);
     }
 
     public override void Undo()
     {
-        (_target as Fighter).Heal(-value);
+        (_target as Fighter).AddDefensePermanent(-value);
     }
 
     // Start is called before the first frame update

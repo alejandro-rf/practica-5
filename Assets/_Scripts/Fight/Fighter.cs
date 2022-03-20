@@ -55,6 +55,11 @@ public class Fighter : Entity
             Die();
     }
 
+    public void Heal(float amount)
+    {
+        CurrentHealth += amount;
+    }
+
     private void Die()
     {
         Destroy(gameObject);
