@@ -45,13 +45,48 @@ public class ActionButtonController : MonoBehaviour
         _canvasGroup.interactable = false;
     }
 
-   
+    private void Start()
+    {
+        CurrentButtons = new List<GameObject>();
+        MakeButtons();
+    }
 
-  
+    private void MakeButtons()
+    {
+        var commands = CombatManager.EntityManager.ActiveEntity.GetComponent<Fighter>().PossibleCommands;
 
-    
+        foreach (var command in commands)
+        {
+            MakeNewButton(command);
+        }
+    }
+
+    private void MakeNewButton(FightCommandTypes command)
+    {
+        var button = Instantiate(ActionButtonPrefab) as ActionButton;
+        button.Init(command, this);
+        button.transform.SetParent(transform);
+        CurrentButtons.Add(button.gameObject);
+    }
+
+    public void UpdateButtons()
+    {
+        _UpdateButtons();
+    }
+
+    private void _UpdateButtons()
+    {
+        foreach(GameObject button in CurrentButtons)
+        {
+            Destroy(button);
+        }
+        CurrentButtons.Clear();
+
+        MakeButtons();
+    }
+
     public void OnButtonPressed(FightCommandTypes fightCommandType)
     {
-        
+        CombatManager.DoAction(fightCommandType);
     }
 }

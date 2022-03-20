@@ -40,7 +40,7 @@ public class StatsUI : MonoBehaviour
 
     void UpdateStats(Fighter fighter)
     {
-        return; // Lo puso Lasse  for debug
+        //return; // Lo puso Lasse  for debug
         Name.text = fighter.transform.name;
         HealthPoints.text = "HP: "+fighter.CurrentHealth.ToString();
         AttackPoints.text = "ATT: " + fighter.Attack.ToString();

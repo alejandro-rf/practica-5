@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EntityManager : MonoBehaviour
@@ -11,6 +12,9 @@ public class EntityManager : MonoBehaviour
 
     public Entity OtherEntity => Entities[++_currentIndex % Entities.Count];
 
+    public Entity[] Friends => Entities.Where(x => x.Team == ActiveEntity.Team).ToArray();
+    public Entity[] FriendsNotSelf => Entities.Where(x => x.Team == ActiveEntity.Team && x != ActiveEntity).ToArray();
+    public Entity[] Enemies => Entities.Where(x => x.Team != ActiveEntity.Team).ToArray();
    
 
     public void SetNextEntity()

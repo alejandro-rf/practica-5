@@ -10,34 +10,45 @@ public class CombatManager : MonoBehaviour
     public ChooseTarget TargetChooser;
     public Invoker Invoker;
     public StatsUI Stats;
+    private CommandFactory _factory;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
-        //_factory = new CommandFactory();
-        StartBattle();
+        _factory = new CommandFactory();
+
+        StartBattle();      
+
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))
+        {
             Undo();
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextTurn();
+        }
     }
 
     void StartBattle()
     {
-       
-    
+        ShowCurrentFighterStats();
     }
 
     public void DoAction(FightCommandTypes commandType)
     {
-       
-
+        //Command _currentCommand = _factory.GetCommands().[commandType] as Command;
+        var x = _factory.GetCommand(commandType);
+        Debug.Log(_factory.GetCommand(commandType));
+        ChooseTarget(_factory.GetCommand(commandType));
     }
-    /*
-    private void ChooseTarget(FightCommand _currentCommand)
+
+    //private void ChooseTarget(FightCommand _currentCommand)
+    private void ChooseTarget(Command _currentCommand)
     {
         var targetTypes = _currentCommand.PossibleTargets;
 
@@ -66,7 +77,7 @@ public class CombatManager : MonoBehaviour
         ActionButtonController.ChooseTarget(EntityManager.ActiveEntity);
         TargetChooser.StartChoose(possibleTargets);
     }
-    */
+    
     private void DoAction(Entity actor, Entity target, FightCommandTypes type)
     {
         
@@ -80,7 +91,17 @@ public class CombatManager : MonoBehaviour
 
     public void NextTurn()
     {
-        
+        EntityManager.SetNextEntity();
+        //Debug.Log(EntityManager.ActiveEntity);
+        ActionButtonController.UpdateButtons();
+
+        ShowCurrentFighterStats();
+    }
+
+    private void ShowCurrentFighterStats()
+    {
+        var fighter = EntityManager.ActiveEntity.GetComponent<Fighter>();
+        Stats.SetEntity(fighter);
     }
 
     internal void TargetChosen(ISelectable entity)
