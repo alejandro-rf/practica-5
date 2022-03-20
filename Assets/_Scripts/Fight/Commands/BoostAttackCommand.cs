@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoostAttackCommand : Command
 {
     private float value;
+
     public BoostAttackCommand(Entity target, float value) : base(target)
     {
         this.value = value;
