@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldCommand : Command
+public class ShieldCommand : FightCommand
 {
     private float value;
+    FightCommandTypes type = FightCommandTypes.Shield;
+    TargetTypes targets = TargetTypes.FriendNotSelf;
 
     public ShieldCommand(Entity target, float value) : base(target)
     {
+        Type = type;
+        PossibleTargets = TargetTypes.FriendNotSelf;
         this.value = value;
     }
 
+    public ShieldCommand() { Type = type; PossibleTargets = targets; }
     public override void Excecute()
     {
         (_target as Fighter).AddDefense(value);

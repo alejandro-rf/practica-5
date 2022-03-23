@@ -10,36 +10,32 @@ public class CommandFactory
     private Dictionary<FightCommandTypes, Type> _commandByName;
     public CommandFactory()
     {
-        //Look at (assembly) where ICommand is registered and get all classes that are ICommand
-        //.Where -> Filter: is not an interface && implements ICommand
-        var commandTypes = Assembly.GetAssembly(typeof(ICommand)).GetTypes()
-            .Where(x => !x.IsInterface && typeof(ICommand).IsAssignableFrom(x));
+        var commandTypes = Assembly.GetAssembly(typeof(FightCommand)).GetTypes()
+            .Where(x => !x.IsInterface && typeof(FightCommand).IsAssignableFrom(x));
 
         _commandByName = new Dictionary<FightCommandTypes, Type>();
 
         foreach (var commandType in commandTypes)
         {
-            //Create instance of gun or sword so that we can get value of Name attribute
             var tempCommand = Activator.CreateInstance(commandType);
-            _commandByName.Add(((Command)tempCommand).Type, commandType);
+            _commandByName.Add(((FightCommand)tempCommand).Type, commandType);
         }
-        Debug.Log(_commandByName.Count);
     }
 
-    public Command GetCommand(FightCommandTypes commandType)
+    public FightCommand GetCommand(FightCommandTypes commandType)
     {
         if (_commandByName.ContainsKey(commandType))
         {
-            return Activator.CreateInstance(_commandByName[commandType]) as Command;
+            return Activator.CreateInstance(_commandByName[commandType]) as FightCommand;
         }
         Debug.LogError("No fem" + commandType);
         return null;
     }
 
-    //public string[] GetAllNames()
-    //{
-    //    return _commandByName.Keys.ToArray();
-    //}
+    public FightCommandTypes[] GetAllCommands()
+    {
+        return _commandByName.Keys.ToArray();
+    }
 
     public Dictionary<FightCommandTypes, Type> GetCommands()
     {

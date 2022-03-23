@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoostDefenseCommand : Command
+public class BoostDefenseCommand : FightCommand
 {
     private float value;
+    FightCommandTypes type = FightCommandTypes.BoostDefense;
+    TargetTypes targets = TargetTypes.Self;
 
     public BoostDefenseCommand(Entity target, float value) : base(target)
     {
+        Type = type;
+        PossibleTargets = TargetTypes.Self;
         this.value = value;
     }
 
+    public BoostDefenseCommand() { Type = type; PossibleTargets = targets; }
     public override void Excecute()
     {
         (_target as Fighter).AddDefensePermanent(value);

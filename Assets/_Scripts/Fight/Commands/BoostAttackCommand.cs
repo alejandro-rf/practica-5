@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoostAttackCommand : Command
+public class BoostAttackCommand : FightCommand
 {
     private float value;
+    FightCommandTypes type = FightCommandTypes.BoostAttack;
+    TargetTypes targets = TargetTypes.Self;
 
     public BoostAttackCommand(Entity target, float value) : base(target)
     {
+        Type = type;
+        PossibleTargets = TargetTypes.Self;
         this.value = value;
     }
+
+    public BoostAttackCommand() { Type = type; PossibleTargets = targets; }
 
     public override void Excecute()
     {

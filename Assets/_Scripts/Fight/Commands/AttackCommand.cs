@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackCommand : Command
+public class AttackCommand : FightCommand
 {
     private float value = 5f;
-    
+    FightCommandTypes type = FightCommandTypes.Attack;
+    TargetTypes targets = TargetTypes.Enemy;
+
     public AttackCommand(Fighter entity, float value) : base(entity)
     {
-        Type = FightCommandTypes.Attack;
+        Type = type;
         PossibleTargets = TargetTypes.Enemy;
         this.value = value;
+    }
+
+    public AttackCommand()
+    {
+        Type = type;
+        PossibleTargets = targets;
     }
 
     public override void Excecute()

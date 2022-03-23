@@ -5,13 +5,13 @@ using UnityEngine;
 public abstract class Command : ICommand
 {
     protected Entity _target;
-    public FightCommandTypes Type;
-    public TargetTypes PossibleTargets;
 
-    protected Command(Entity target)
+    public Command(Entity target)
     {
         _target = target;
     }
+
+    public Command() { }
 
     public abstract void Excecute();
     public abstract void Undo();

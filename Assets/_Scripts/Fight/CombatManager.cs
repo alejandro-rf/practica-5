@@ -12,8 +12,6 @@ public class CombatManager : MonoBehaviour
     public StatsUI Stats;
     private CommandFactory _factory;
 
-    
-
     // Start is called before the first frame update
     void Start()
     {
@@ -41,14 +39,10 @@ public class CombatManager : MonoBehaviour
 
     public void DoAction(FightCommandTypes commandType)
     {
-        //Command _currentCommand = _factory.GetCommands().[commandType] as Command;
-        var x = _factory.GetCommand(commandType);
-        Debug.Log(_factory.GetCommand(commandType));
         ChooseTarget(_factory.GetCommand(commandType));
     }
 
-    //private void ChooseTarget(FightCommand _currentCommand)
-    private void ChooseTarget(Command _currentCommand)
+    private void ChooseTarget(FightCommand _currentCommand)
     {
         var targetTypes = _currentCommand.PossibleTargets;
 
@@ -80,7 +74,9 @@ public class CombatManager : MonoBehaviour
     
     private void DoAction(Entity actor, Entity target, FightCommandTypes type)
     {
-        
+        //Com sé quin tipus de command arriba per a generar-lo
+        var command = _factory.GetCommand(type);
+        Invoker.AddCommand(command);
     }
 
     private void Undo()
@@ -106,11 +102,10 @@ public class CombatManager : MonoBehaviour
 
     internal void TargetChosen(ISelectable entity)
     {
-        if(!(entity is Entity))
+        if (!(entity is Entity))
         {
             Debug.LogError("Selected is not entity");
             return;
         }
-     
     }
 }
