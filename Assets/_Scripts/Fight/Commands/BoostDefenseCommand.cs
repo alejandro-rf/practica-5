@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BoostDefenseCommand : FightCommand
 {
-    private float value;
+    private float value = 1;
     FightCommandTypes type = FightCommandTypes.BoostDefense;
     TargetTypes targets = TargetTypes.Self;
 
-    public BoostDefenseCommand(Entity target, float value) : base(target)
+    public BoostDefenseCommand(Entity target, float value = 1) : base(target)
     {
         Type = type;
         PossibleTargets = TargetTypes.Self;

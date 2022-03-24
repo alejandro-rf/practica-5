@@ -8,7 +8,7 @@ public class AttackCommand : FightCommand
     FightCommandTypes type = FightCommandTypes.Attack;
     TargetTypes targets = TargetTypes.Enemy;
 
-    public AttackCommand(Fighter entity, float value) : base(entity)
+    public AttackCommand(Fighter entity, float value = 5f) : base(entity)
     {
         Type = type;
         PossibleTargets = TargetTypes.Enemy;

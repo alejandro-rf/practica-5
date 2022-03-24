@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Command : ICommand
 {
-    protected Entity _target;
+    public Entity _target;
 
     public Command(Entity target)
     {

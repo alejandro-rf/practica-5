@@ -12,6 +12,8 @@ public class CombatManager : MonoBehaviour
     public StatsUI Stats;
     private CommandFactory _factory;
 
+    private FightCommandTypes _pendingCommand;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class CombatManager : MonoBehaviour
 
     public void DoAction(FightCommandTypes commandType)
     {
+        _pendingCommand = commandType;
         ChooseTarget(_factory.GetCommand(commandType));
     }
 
@@ -76,12 +79,18 @@ public class CombatManager : MonoBehaviour
     {
         //Com sé quin tipus de command arriba per a generar-lo
         var command = _factory.GetCommand(type);
+        command._target = target;
         Invoker.AddCommand(command);
+
+        NextTurn();
     }
 
     private void Undo()
     {
-        
+        Invoker.Undo();
+        EntityManager.SetPreviousEntity();
+        ActionButtonController.UpdateButtons();
+        ShowCurrentFighterStats();
     }
 
 
@@ -90,7 +99,7 @@ public class CombatManager : MonoBehaviour
         EntityManager.SetNextEntity();
         //Debug.Log(EntityManager.ActiveEntity);
         ActionButtonController.UpdateButtons();
-
+        ActionButtonController.TargetChosen();
         ShowCurrentFighterStats();
     }
 
@@ -106,6 +115,10 @@ public class CombatManager : MonoBehaviour
         {
             Debug.LogError("Selected is not entity");
             return;
+        }
+        else
+        {
+            DoAction(EntityManager.ActiveEntity, entity as Entity, _pendingCommand);
         }
     }
 }

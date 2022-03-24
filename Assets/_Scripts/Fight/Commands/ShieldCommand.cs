@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ShieldCommand : FightCommand
 {
-    private float value;
+    private float value = 5;
     FightCommandTypes type = FightCommandTypes.Shield;
     TargetTypes targets = TargetTypes.FriendNotSelf;
 
-    public ShieldCommand(Entity target, float value) : base(target)
+    public ShieldCommand(Entity target, float value = 5) : base(target)
     {
         Type = type;
         PossibleTargets = TargetTypes.FriendNotSelf;

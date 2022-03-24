@@ -89,6 +89,12 @@ public class Fighter : Entity
         OnChange?.Invoke();
     }
 
+    public void SubtractDefensePermanent(float amount)
+    {
+        BaseDefense -= amount;
+        OnChange?.Invoke();
+    }
+
     public void AddAttackPermanent(float amount)
     {
         BaseAttack += amount;

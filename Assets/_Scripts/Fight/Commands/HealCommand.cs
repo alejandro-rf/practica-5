@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HealCommand : FightCommand
 {
-    private float value;
+    private float value = 3;
     FightCommandTypes type = FightCommandTypes.Heal;
     TargetTypes targets = TargetTypes.Friend;
 
-    public HealCommand(Fighter entity, float value) : base(entity)
+    public HealCommand(Fighter entity, float value = 3) : base(entity)
     {
         Type = type;
         PossibleTargets = TargetTypes.Friend;

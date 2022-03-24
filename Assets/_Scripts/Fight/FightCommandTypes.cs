@@ -9,6 +9,7 @@ public enum FightCommandTypes
     BoostDefense,
     Heal,
     Shield,
+    DebuffDefense,
     None
 }
 

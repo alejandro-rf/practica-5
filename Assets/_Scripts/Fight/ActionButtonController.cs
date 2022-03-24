@@ -31,6 +31,11 @@ public class ActionButtonController : MonoBehaviour
         Hide();
     }
 
+    internal void TargetChosen()
+    {
+        Show();
+    }
+
     void Show()
     {
         _canvasGroup.alpha = 1;
